@@ -18,6 +18,11 @@ add this to your composer file :
 ```
 _Version numbers for better support will be added once first phase of developpements is finished_
 
+YOu also need to add this to your AppKernel.php
+```
+new oliverde8\MPDedicatedServerBundle\oliverde8MPDedicatedServerBundle(),
+```
+
 ### Configuration
 
 Edit you config.yml and add this in it : 
@@ -52,13 +57,31 @@ doctrine_cache:
             namespace: info_cache
 ```
 
+to check if everything works well you can use the demo page, in order to do this we need to add a route. So add this to the routing_dev.yml
+```
+# oliverde8MPDedicatedServerBundle demo routes (to be removed)
+oliverde8_mp_dedicated_server_demo:
+    path:     /demo/mp/server/info/{login}
+    defaults: { _controller: oliverde8MPDedicatedServerBundle:Demo:serverInfo, login: _ }
+```
+
 You should be ready to go. 
 
 Check the demo page to see if everything work well : 
 ```
 app_dev.php/demo/mp/server/info/
 ```
-_I will disable the demo page on production environnement, still working on it :see_no_evil: _
+
+## Acces the API
+You can access the api from this url
+
+```
+/mp/server/info/<login>.json
+```
+
+## More Information 
+If you check the code you will see that what I call login isn't used anywhere in the code in that purpose, in reality it is just a key to identify the servers. 
+You may use something else as well
 
 ## TO DO
 This bundle is still being worked on, that is why there is no releases yet. 
