@@ -1,0 +1,23 @@
+{
+    "name": "oliverde8/mp-dedicated-server-bundle",
+    "description": "A bundle that creates a simple json api with application cache to simplify access to dedicated server information",
+    "license": "GNU",
+    "homepage": "https://github.com/oliverde8/MPDedicatedServerBundle",
+    "authors": [
+        {
+            "name": "Oliver de Cramer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.6.*",
+        "Doctrine/Common": "2.4.*",
+        "doctrine/doctrine-cache-bundle": "~1.0",
+        "maniaplanet/dedicated-server-api": "4.0.*",
+        "manialib/formatting": "4.0.*@dev"
+    },
+    "autoload": {
+        "psr-0": { "oliverde8\\MPDedicatedServerBundle": "" }
+    },
+    "target-dir": "oliverde8/MPDedicatedServerBundle"
+}
