@@ -1,0 +1,107 @@
+{% extends "oliverde8MPDedicatedServerBundle::layout.html.twig" %}
+
+{% block title "MP Dedicated Server Bundle - Demo" %}
+
+{% block content_header '' %}
+
+{% block body %}
+    <div class="uk-grid mp_server__info" data-uk-grid-margin data-server-login="{{ login }}">
+        <!-- class:uk-width-large-4-10 uk-width-medium-1-1 -->
+
+        {{
+            render(
+                controller(
+                    "oliverde8MPDedicatedServerBundle:Block:serverWidget",
+                    {'urlPath': 'oliverde8_mp_dedicated_server_demo', 'class': 'uk-width-large-4-10 uk-width-medium-1-1', 'login': login, 'standolone': '0'}
+                )
+            )
+        }}
+
+        <div class="uk-width-large-3-10 uk-width-medium-1-2 uk-width-small-1-1">
+            <div class="uk-panel">
+                <div class="uk-panel-title  serverName ">
+                    Players
+                </div>
+                <div class="uk-panel-badge">
+                    <i class="uk-icon-user"></i>
+                </div>
+                <div class="mp_server__info__player_list">
+                    <ul style="display: none">
+                        <!-- Content thad will be duplicated -->
+                        <li class="mp_server__info__player_mockup">
+                            <span class="mp_server__info__player__nickName"></span>
+                        </li>
+                    </ul>
+                    <ul class="uk-list uk-list-striped mp_server__info__player_container">
+                        <!-- Filled with JS -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-width-large-3-10 uk-width-medium-1-2 uk-width-small-1-1">
+            <div class="uk-panel">
+                <div class="uk-panel-title  serverName ">
+                    Spectators
+                </div>
+                <div class="uk-panel-badge">
+                    <i class="uk-icon-eye"></i>
+                </div>
+
+                <div class="mp_server__info__spectator_list">
+                    <ul style="display: none">
+                        <!-- Content thad will be duplicated -->
+                        <li class="mp_server__info__player_mockup">
+                            <span class="mp_server__info__player__nickName"></span>
+                        </li>
+                    </ul>
+                    <ul class="uk-list uk-list-striped mp_server__info__player_container">
+                        <!-- Filled with JS -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-width-1-1">
+            <div class="uk-panel">
+                <div class="uk-panel-title  serverName ">
+                    Maps
+                    <div class="uk-panel-badge">
+                        <i class="uk-icon-flash"></i>
+                    </div>
+                </div>
+
+                <div class="mp_server__info__map_list">
+                    <ul style="display: none">
+                        <table>
+                            <!-- Content thad will be duplicated -->
+                            <tr class="mp_server__info__map_mockup">
+                                <td>#<span class="mp_server__info__map__nb"></span></td>
+                                <td class="mp_server__info__map__name"></td>
+                                <td class="mp_server__info__map__author"></td>
+                                <td class="mp_server__info__map__goldTime"></td>
+                                <td class="mp_server__info__map__environnement"></td>
+                                <td class="mp_server__info__map__mapType"></td>
+                            </tr>
+                        </table>
+                    </ul>
+                    <table class="uk-table uk-table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Author</th>
+                                <th>Author Time</th>
+                                <th>Environnment</th>
+                                <th>Map Type</th>
+                            </tr>
+                        </thead>
+                        <tbody class="mp_server__info__map_container">
+                            <!-- Filled with JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

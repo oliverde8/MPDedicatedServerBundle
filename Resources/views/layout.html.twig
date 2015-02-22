@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="{{ _charset }}" />
+    <title>{% block title %}{% endblock %}</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://magnetik.github.com/maniaplanet-style-js-parser/bin/mp-style-parser.js"></script>
+
+    {% stylesheets filter='cssrewrite' '@oliverde8MPDedicatedServerBundle/Resources/public/css/*' %}
+    <link href="{{ asset_url }}" rel="stylesheet" />
+    {% endstylesheets %}
+
+    {% javascripts '@oliverde8MPDedicatedServerBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+
+    <nav class = "uk-navbar uk-margin-large-bottom">
+        <span class="uk-navbar-brand uk-hidden-small">
+            Demo Server Status Page
+        </span>
+        <ul class="uk-navbar-nav">
+            <li class="uk-navbar-parent" data-uk-dropdown>
+                <a href="#"> Servers <i class="uk-icon-caret-down"></i></a>
+
+                <div class="uk-dropdown uk-dropdown-navbar">
+                    {{ render(controller("oliverde8MPDedicatedServerBundle:Block:serverList", {'urlPath': 'oliverde8_mp_dedicated_server_demo', 'class': 'uk-nav-navbar'})) }}
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="uk-margin-large-bottom">
+        {% block body %}{% endblock %}
+    </div>
+
+
+    <!-- Footer -->
+    <div class="uk-container uk-container-center uk-margin-top  footer small" data-uk-grid-margin>
+        <img class="uk-align-center" style="height: 35px" src="http://files.oliver-decramer.com/web/sources/css/images/logo_oliver.png"/>
+    </div>
+</div>
+</body>
+</html>

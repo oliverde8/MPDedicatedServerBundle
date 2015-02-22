@@ -1,0 +1,7 @@
+{# oliverde8MPDedicatedServerBundle:Block:server.list.html.twig #}
+
+<ul class="uk-nav {{ class }}">
+    {% for login, name in serverNames %}
+    <li><a href="{{ path(urlPath, {'login' : login}) }}">{{ name }}name</a></li>
+    {% endfor %}
+</ul>

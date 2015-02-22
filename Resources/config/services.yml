@@ -1,0 +1,6 @@
+services:
+  cache:
+    class: Doctrine\Common\Cache\ApcCache
+  oliverde8_mp_dedicated_server.dedicated_server:
+    class: oliverde8\MPDedicatedServerBundle\Service\DedicatedServer
+    arguments: [%servers%,@doctrine_cache.providers.oliverde8_mp_dedicated_server__info]

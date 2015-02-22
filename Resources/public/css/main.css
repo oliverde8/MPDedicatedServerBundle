@@ -1,0 +1,96 @@
+/* 
+    Author     : reaby
+*/
+
+.footer {
+    border-top: 1px solid #ddd;
+}
+
+.right {
+    text-align: right;
+}
+
+.small {
+    font-size: small;
+}
+
+#mainPage {
+    border-left: 1px solid #ddd;
+}
+.side-nav ul {
+    margin: 0;
+    padding: 0;
+}
+.side-nav li {
+    list-style-type: none;  
+    margin: 0;
+    padding: 0;
+}
+
+.side-nav li a {
+    font-family: "";
+    padding: 0.25em 1em;
+    display: block;
+    color: #888;
+    text-decoration: none;
+}
+
+.side-nav li a:hover {
+    display: block;
+    color: #444;
+    background: #eee;
+    text-decoration: none;
+}
+
+.badge-online {
+    padding: 0 0.5em;
+    border-radius: 8px;
+    color: yellow;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.badge-offline {
+    padding: 0 0.5em;
+    border-radius: 16px;
+    color: white;
+}
+.panel-serverOverview {
+    height: 6em;
+}
+
+.panel-serverOverview td {
+    text-align: center;
+}
+.currentMap {
+    padding: 0.25em;
+    background: #ddd;
+    border: 1px solid #ccc;
+}
+.mapEntry {
+    width: 24em;
+}
+.mapEntry a {
+    display: block;
+    padding: 0.25em;
+    background: #ddd;
+    border: 1px solid #ccc;
+}
+
+.mapRow td {
+    padding: 0.2em;
+}
+
+.mapEntry:hover a {
+    background: #999;
+}
+
+.serverChat {
+    padding: 0.5em;
+    background: #ccc;
+    border: 1px solid #bbb;
+    text-shadow: 1px 1px 1px #444;
+}
+
+.textShadow {
+    text-shadow: 1px 1px 2px #444; 
+}
