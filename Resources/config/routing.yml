@@ -2,6 +2,6 @@ oliverde8_mp_dedicated_server_api_info:
     path:     /mp/server/info/{login}.json
     defaults: { _controller: oliverde8MPDedicatedServerBundle:Api:serverInfo }
 
-oliverde8_mp_dedicated_server_demo:
-    path:     /demo/mp/server/info/{login}
-    defaults: { _controller: oliverde8MPDedicatedServerBundle:Demo:serverInfo, login: _ }
+#oliverde8_mp_dedicated_server_demo:
+#    path:     /demo/mp/server/info/{login}
+#    defaults: { _controller: oliverde8MPDedicatedServerBundle:Demo:serverInfo, login: _ }
