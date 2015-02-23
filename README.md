@@ -12,7 +12,20 @@ The bundle comes with a jQUery plugin that will make it easy for you to display 
 ##Installation 
 You of course need a working symfony installation; 
 
-add this to your composer file : 
+###Dependencies
+First we need need to add doctrine cache to our installation if not already done.  
+Add it first to your composer : 
+```
+"doctrine/doctrine-cache-bundle": "~1.0",
+```
+
+You also need to activate it in AppKernel : 
+```
+new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
+```
+
+###Install the bundle
+Add this to your composer file : 
 ```
 "oliverde8/mp-dedicated-server-bundle": "dev-master"
 ```
@@ -21,6 +34,13 @@ _Version numbers for better support will be added once first phase of developpem
 YOu also need to add this to your AppKernel.php
 ```
 new oliverde8\MPDedicatedServerBundle\oliverde8MPDedicatedServerBundle(),
+```
+
+We will also need to define routes, you may change the prefix to whatever you wish
+```
+oliverde8_mp_dedicated_server:
+    resource: "@oliverde8MPDedicatedServerBundle/Resources/config/routing.yml"
+    prefix:   /mp/dedicated/api/
 ```
 
 ### Configuration
@@ -57,27 +77,69 @@ doctrine_cache:
             namespace: info_cache
 ```
 
-to check if everything works well you can use the demo page, in order to do this we need to add a route. So add this to the routing_dev.yml
+### Finish Installation 
+just run a composer update now and it should do the magic. 
+
+## The Demo
+To check if everything works well you can use the demo page, in order to do this we need to add a route. We may add it to production or to dev. 
+So add this to the routing_dev.yml
 ```
 # oliverde8MPDedicatedServerBundle demo routes (to be removed)
 oliverde8_mp_dedicated_server_demo:
-    path:     /demo/mp/server/info/{login}
+    path:     /demo/{login}
     defaults: { _controller: oliverde8MPDedicatedServerBundle:Demo:serverInfo, login: _ }
+```
+
+We also need to define the assets for the demo. Find the `# Assetic Configuration` section in config.yml and add `oliverde8MPDedicatedServerBundle` to the list of bundles.
+It should look like this : 
+```
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ oliverde8MPDedicatedServerBundle ]
 ```
 
 You should be ready to go. 
 
 Check the demo page to see if everything work well : 
 ```
-app_dev.php/demo/mp/server/info/
+app_dev.php/demo
 ```
+
+### About the Demo
+Even throught I call it a demo if you don't wish to spend time building a website to show information about your servers you may use this page. 
+I am going to work on it some more to that it is nicer to display & has all the necesessart funtionality. 
+
+You will of course need to change the route parameters to make it accessible in production with a nicer URL. 
 
 ## Acces the API
 You can access the api from this url
 
 ```
-/mp/server/info/<login>.json
+/mp/dedicated/api/info/<login>.json
 ```
+
+### More About Api & Cache
+The api gathers at the moment only server information. This consist basically of these information
+* Server Options
+ * Server Name 
+ * Server Comment
+ * Game Mode
+ * Environment running on
+ * ladderServerLimitMax
+ * ...
+* List of players
+ * nickname
+ * login 
+ * ...
+* List of spectators
+* Current Map
+* List of Maps
+ * I missing some map information at the moment. 
+ 
+To gather this data as fast as possible by default Server Options, List of Players & Current Map is updated every minute. 
+
+Map list on the other hand is only retrieved every hour. This cache ttl values will become configurable in the future.
 
 ## More Information 
 If you check the code you will see that what I call login isn't used anywhere in the code in that purpose, in reality it is just a key to identify the servers. 
@@ -91,3 +153,5 @@ This bundle is still being worked on, that is why there is no releases yet.
 * Add event & hooks to the jquery plugin
 * Make the jquery plugin more configurable
 * Add missing data to the api return json. 
+* Get chat lines
+* Improve cache so that only 1 call can be made to the dedicated at a time. 
