@@ -15,7 +15,7 @@
         var that = $(this);
 
         $.ajax({
-            url : "/mp/server/info/" + settings.login + ".json"
+            url : "/mp/dedicated/api/info/" + settings.login + ".json"
         }).done(function (data){
             console.log(data);
 
