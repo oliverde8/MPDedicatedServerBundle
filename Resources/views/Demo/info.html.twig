@@ -5,7 +5,14 @@
 {% block content_header '' %}
 
 {% block body %}
-    <div class="uk-grid mp_server__info" data-uk-grid-margin data-server-login="{{ login }}">
+    <div
+            class="uk-grid mp_server__info"
+            data-uk-grid-margin
+            data-server-login="{{ login }}"
+            data-server-info-url="{{ path('oliverde8_mp_dedicated_server_api_info', {'login' : login}) }}"
+            data-server-maps-url="{{ path('oliverde8_mp_dedicated_server_api_maps', {'login' : login}) }}"
+            data-server-chat-url="{{ path('oliverde8_mp_dedicated_server_api_chat', {'login' : login}) }}"
+            >
         <!-- class:uk-width-large-4-10 uk-width-medium-1-1 -->
 
         {{
@@ -16,6 +23,29 @@
                 )
             )
         }}
+
+        <div class="uk-width-large-6-10 uk-width-medium-1-2 uk-width-small-1-1">
+            <div class="uk-panel">
+                <div class="uk-panel-title  serverName ">
+                    Chat
+                </div>
+                <div class="uk-panel-badge">
+                    <i class="uk-icon-archive"></i>
+                </div>
+
+                <div class="mp_server__info__chat" style="background-color: #222222">
+                    <ul style="display: none">
+                        <!-- Content thad will be duplicated -->
+                        <li class="mp_server__info__chat_mockup">
+                            <span class="mp_server__info__chat_line"></span>
+                        </li>
+                    </ul>
+                    <ul class="uk-list mp_server__info__chat_container">
+                        <!-- Filled with JS -->
+                    </ul>
+                </div>
+            </div>
+        </div>
 
         <div class="uk-width-large-3-10 uk-width-medium-1-2 uk-width-small-1-1">
             <div class="uk-panel">
@@ -37,9 +67,6 @@
                     </ul>
                 </div>
             </div>
-        </div>
-
-        <div class="uk-width-large-3-10 uk-width-medium-1-2 uk-width-small-1-1">
             <div class="uk-panel">
                 <div class="uk-panel-title  serverName ">
                     Spectators
@@ -62,7 +89,8 @@
             </div>
         </div>
 
-        <div class="uk-width-1-1">
+
+        <div class="uk-width-7-10">
             <div class="uk-panel">
                 <div class="uk-panel-title  serverName ">
                     Maps
