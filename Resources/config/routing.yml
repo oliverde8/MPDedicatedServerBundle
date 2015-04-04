@@ -1,6 +1,14 @@
 oliverde8_mp_dedicated_server_api_info:
-    path:     /info/{login}.json
+    path:     /{login}/info.json
     defaults: { _controller: oliverde8MPDedicatedServerBundle:Api:serverInfo }
+
+oliverde8_mp_dedicated_server_api_maps:
+    path:     /{login}/maps.json
+    defaults: { _controller: oliverde8MPDedicatedServerBundle:Api:serverMapList }
+
+oliverde8_mp_dedicated_server_api_chat:
+    path:     /{login}/chat.json
+    defaults: { _controller: oliverde8MPDedicatedServerBundle:Api:serverChatLines }
 
 #oliverde8_mp_dedicated_server_demo:
 #    path:     /{login}
