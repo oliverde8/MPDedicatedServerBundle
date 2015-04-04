@@ -33,6 +33,14 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('cache')
+                    ->children()
+                        ->integerNode('info_timeout')->end()
+                        ->integerNode('map_timeout')->end()
+                        ->integerNode('map_retry_timeout')->end()
+                        ->integerNode('chat_timeout')->end()
+                    ->end()
+                ->end()
             ->end();
 
         // Here you should define the parameters that are allowed to

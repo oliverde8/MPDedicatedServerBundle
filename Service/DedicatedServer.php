@@ -35,6 +35,11 @@ class DedicatedServer {
 
     private $servers;
 
+    private $cacheTimeOutInfo;
+    private $cacheTimeOutMap;
+    private $cacheTimeOutMapRetry;
+    private $cacheTimeOutChat;
+
     /** @var  Cache */
     private $serverInfoCache;
 
@@ -44,6 +49,11 @@ class DedicatedServer {
     function __construct($servers, Cache $serverInfoCache)
     {
         $this->servers = $servers['servers'];
+        $this->cacheTimeOutInfo = $servers['cache']['info_timeout'];
+        $this->cacheTimeOutMap = $servers['cache']['map_timeout'];
+        $this->cacheTimeOutMapRetry = $servers['cache']['map_retry_timeout'];
+        $this->cacheTimeOutChat = $servers['cache']['chat_timeout'];
+
         $this->serverInfoCache = $serverInfoCache;
     }
 
@@ -65,7 +75,41 @@ class DedicatedServer {
             } else {
                 $data = $this->_getServerInfo($login);
 
-                $this->serverInfoCache->save($cacheKey, $data, 60);
+                $this->serverInfoCache->save($cacheKey, $data, $this->cacheTimeOutInfo);
+
+                return $data;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns chat lines.
+     * Try to use this with ajax calls in order to have a faster website.
+     *
+     * @param string $login Login of the server
+     *
+     * @return ServerInfo|null
+     */
+    public function getServerChatLInes($login)
+    {
+        if (isset($this->servers[$login])) {
+            $cacheKey = $this->_getServerChatCacheKey($login);
+            $cacheResult = $this->serverInfoCache->fetch($cacheKey);
+            if ($cacheResult) {
+                return $cacheResult;
+            } else {
+                $data = array();
+                try {
+                    $connection = $this->getConnection($login);
+                    if ($connection) {
+                        $data = $connection->getChatLines();
+                    }
+                } catch (\Exception $e) {
+
+                }
+                $this->serverInfoCache->save($cacheKey, $data, $this->cacheTimeOutChat);
 
                 return $data;
             }
@@ -94,11 +138,11 @@ class DedicatedServer {
                     $connection = $this->getConnection($login);
                     if ($connection) {
                         $data = $connection->getMapList(-1, 0);
-                        $this->serverInfoCache->save($login, $data, 360);
+                        $this->serverInfoCache->save($cacheKey, $data, $this->cacheTimeOutMap);
                     }
                 } catch (\Exception $e) {
                     //If can't connect keep shorter in cache
-                    $this->serverInfoCache->save($login, array(), 60);
+                    $this->serverInfoCache->save($cacheKey, array(), $this->cacheTimeOutMapRetry);
                 }
 
                 return $data;
@@ -121,13 +165,25 @@ class DedicatedServer {
     }
 
     /**
-     * Get the cache key for server information
+     * Get the cache key for server chat
      *
      * @param $login
      *
      * @return string
      */
     protected function _getServerInfoCacheKey($login)
+    {
+        return 'mp_server_chat__'.$login;
+    }
+
+    /**
+     * Get the cache key for server information
+     *
+     * @param $login
+     *
+     * @return string
+     */
+    protected function _getServerChatCacheKey($login)
     {
         return 'mp_server_info__'.$login;
     }
