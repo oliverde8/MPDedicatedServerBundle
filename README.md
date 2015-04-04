@@ -62,9 +62,16 @@ oliverde8_mp_dedicated_server:
             port : "5002"
             user : "SuperAdmin"
             password : "SuperAdmin"
+    cache:
+            info_timeout: 60
+            map_timeout: 360
+            map_retry_timeout: 60
+            chat_timeout: 10
 ```
 
 You can add as many servers as you wish, if you have only one server you can remove the second one from the config. 
+
+As you can see you can configure cache ttl times as well. Higher ttl values means that the website will connect less often to the dedicated server. Lower values may cause lags. 
 
 You will also need to setup a cache to be used : 
 
@@ -76,6 +83,9 @@ doctrine_cache:
             type: file_system
             namespace: info_cache
 ```
+
+There is no lock on cache at the moment, this means if multiple users connect at the same time they there might be a call to the dedicated done for each of them. 
+In the future a lock will be placed. First player to have an invalid cache will make the call, other players will get old information while the call is running. 
 
 ### Finish Installation 
 just run a composer update now and it should do the magic. 
@@ -113,10 +123,12 @@ I am going to work on it some more to that it is nicer to display & has all the 
 You will of course need to change the route parameters to make it accessible in production with a nicer URL. 
 
 ## Acces the API
-You can access the api from this url
+You can access the api from this urls
 
 ```
-/mp/dedicated/api/info/<login>.json
+/mp/dedicated/api/<login>/info.json
+/mp/dedicated/api/<login>/maps.json
+/mp/dedicated/api/<login>/chat.json
 ```
 
 ### More About Api & Cache
@@ -136,10 +148,13 @@ The api gathers at the moment only server information. This consist basically of
 * Current Map
 * List of Maps
  * I missing some map information at the moment. 
+* chat lines
  
 To gather this data as fast as possible by default Server Options, List of Players & Current Map is updated every minute. 
 
-Map list on the other hand is only retrieved every hour. This cache ttl values will become configurable in the future.
+Map list on the other hand is only retrieved every hour.
+
+Chat lines is retrieved every 10 seconds. You can of course configure this. 
 
 ## More Information 
 If you check the code you will see that what I call login isn't used anywhere in the code in that purpose, in reality it is just a key to identify the servers. 
@@ -148,10 +163,8 @@ You may use something else as well
 ## TO DO
 This bundle is still being worked on, that is why there is no releases yet. 
 * Clean up the code
-* Comment the code 
-* Add configuration elements. (cache ttl's & cache key's) 
+* Comment the code
 * Add event & hooks to the jquery plugin
 * Make the jquery plugin more configurable
-* Add missing data to the api return json. 
-* Get chat lines
+* Add missing data to the api return json.
 * Improve cache so that only 1 call can be made to the dedicated at a time. 
