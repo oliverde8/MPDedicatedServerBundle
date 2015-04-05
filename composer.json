@@ -14,7 +14,8 @@
         "Doctrine/Common": "2.4.*",
         "doctrine/doctrine-cache-bundle": "~1.0",
         "maniaplanet/dedicated-server-api": "4.0.*",
-        "manialib/formatting": "4.0.*@dev"
+        "manialib/formatting": "4.0.*@dev",
+        "kitpages/semaphore-bundle": "~1.4"
     },
     "autoload": {
         "psr-0": { "oliverde8\\MPDedicatedServerBundle": "" }

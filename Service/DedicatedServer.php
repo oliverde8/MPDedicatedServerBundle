@@ -23,6 +23,7 @@
 namespace oliverde8\MPDedicatedServerBundle\Service;
 
 use Doctrine\Common\Cache\Cache;
+use Kitpages\SemaphoreBundle\Manager\ManagerInterface as SemaphoreInterface;
 use Maniaplanet\DedicatedServer\Connection;
 use oliverde8\MPDedicatedServerBundle\Data\ServerInfo;
 
@@ -43,10 +44,13 @@ class DedicatedServer {
     /** @var  Cache */
     private $serverInfoCache;
 
+    /** @var SemaphoreInterface */
+    private $semaphore;
+
     /** @var Connection[] */
     private $connections = array();
 
-    function __construct($servers, Cache $serverInfoCache)
+    function __construct($servers, Cache $serverInfoCache, SemaphoreInterface $semaphore)
     {
         $this->servers = $servers['servers'];
         $this->cacheTimeOutInfo = $servers['cache']['info_timeout'];
@@ -55,6 +59,7 @@ class DedicatedServer {
         $this->cacheTimeOutChat = $servers['cache']['chat_timeout'];
 
         $this->serverInfoCache = $serverInfoCache;
+        $this->semaphore = $semaphore;
     }
 
     /**
@@ -67,14 +72,31 @@ class DedicatedServer {
      */
     public function getServerInfo($login)
     {
+        static $lockAcquired = false;
+
         if (isset($this->servers[$login])) {
             $cacheKey = $this->_getServerInfoCacheKey($login);
             $cacheResult = $this->serverInfoCache->fetch($cacheKey);
             if ($cacheResult) {
                 return $cacheResult;
-            } else {
-                $data = $this->_getServerInfo($login);
+            } else if (!$lockAcquired) {
+                // We don't have the lock, we need to get it before asking the dedicated.
 
+                // Start Protected code.
+                $this->semaphore->aquire($cacheKey);
+                $lockAcquired = true;
+
+                // Ask for data again, if cache filled from other instance then data from cache, if not wil do a call.
+                $data = $this->getServerInfo($login);
+
+                // End protected code.
+                $lockAcquired = false;
+                $this->semaphore->release($cacheKey);
+
+                return $data;
+            } else {
+                // We have the lock, data not in cache get data from the server.
+                $data = $this->_getServerInfo($login);
                 $this->serverInfoCache->save($cacheKey, $data, $this->cacheTimeOutInfo);
 
                 return $data;
@@ -92,13 +114,30 @@ class DedicatedServer {
      *
      * @return ServerInfo|null
      */
-    public function getServerChatLInes($login)
+    public function getServerChatLines($login)
     {
+        static $lockAcquired = false;
+
         if (isset($this->servers[$login])) {
             $cacheKey = $this->_getServerChatCacheKey($login);
             $cacheResult = $this->serverInfoCache->fetch($cacheKey);
             if ($cacheResult) {
                 return $cacheResult;
+            } else if (!$lockAcquired) {
+                // We don't have the lock, we need to get it before asking the dedicated.
+
+                // Start Protected code.
+                $this->semaphore->aquire($cacheKey);
+                $lockAcquired = true;
+
+                // Ask for data again, if cache filled from other instance then data from cache, if not wil do a call.
+                $data = $this->getServerChatLines($login);
+
+                // End protected code.
+                $lockAcquired = false;
+                $this->semaphore->release($cacheKey);
+
+                return $data;
             } else {
                 $data = array();
                 try {
@@ -127,11 +166,28 @@ class DedicatedServer {
      * @return \Maniaplanet\DedicatedServer\Structures\Map[]
      */
     public function getMapList($login) {
+        static $lockAcquired = false;
+
         if (isset($this->servers[$login])) {
             $cacheKey = $this->_getServerMapsCacheKey($login);
             $cacheResult = $this->serverInfoCache->fetch($cacheKey);
             if ($cacheResult) {
                 return $cacheResult;
+            } else if (!$lockAcquired) {
+                // We don't have the lock, we need to get it before asking the dedicated.
+
+                // Start Protected code.
+                $this->semaphore->aquire($cacheKey);
+                $lockAcquired = true;
+
+                // Ask for data again, if cache filled from other instance then data from cache, if not wil do a call.
+                $data = $this->getMapList($login);
+
+                // End protected code.
+                $lockAcquired = false;
+                $this->semaphore->release($cacheKey);
+
+                return $data;
             } else {
                 $data = array();
                 try {
@@ -173,7 +229,7 @@ class DedicatedServer {
      */
     protected function _getServerInfoCacheKey($login)
     {
-        return 'mp_server_chat__'.$login;
+        return 'mp_server_info__'.$login;
     }
 
     /**
@@ -185,7 +241,7 @@ class DedicatedServer {
      */
     protected function _getServerChatCacheKey($login)
     {
-        return 'mp_server_info__'.$login;
+        return 'mp_server_cache__'.$login;
     }
 
     /**
