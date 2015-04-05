@@ -137,7 +137,7 @@
                     }
 
                 } else {
-                    console.error("Maniaplanet server Info can't connect to server : " + settings.login)
+                    console.error("Maniaplanet server Info can't connect to server : " + plugin.settings.login)
                 }
             });
         };
