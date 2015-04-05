@@ -19,21 +19,14 @@
             render(
                 controller(
                     "oliverde8MPDedicatedServerBundle:Block:serverWidget",
-                    {'urlPath': 'oliverde8_mp_dedicated_server_demo', 'class': 'uk-width-large-4-10 uk-width-medium-1-1', 'login': login, 'standolone': '0'}
+                    {'urlPath': 'oliverde8_mp_dedicated_server_demo', 'class': 'uk-width-large-4-10 uk-width-medium-1-2', 'login': login, 'standolone': '0'}
                 )
             )
         }}
 
         <div class="uk-width-large-6-10 uk-width-medium-1-2 uk-width-small-1-1">
             <div class="uk-panel">
-                <div class="uk-panel-title  serverName ">
-                    Chat
-                </div>
-                <div class="uk-panel-badge">
-                    <i class="uk-icon-archive"></i>
-                </div>
-
-                <div class="mp_server__info__chat" style="background-color: #222222">
+                <div class="mp_server__info__chat uk-scrollable-box" style="background-color: #222222">
                     <ul style="display: none">
                         <!-- Content thad will be duplicated -->
                         <li class="mp_server__info__chat_mockup">
@@ -47,50 +40,56 @@
             </div>
         </div>
 
-        <div class="uk-width-large-3-10 uk-width-medium-1-2 uk-width-small-1-1">
-            <div class="uk-panel">
-                <div class="uk-panel-title  serverName ">
-                    Players
+        <div class="uk-width-large-3-10 uk-width-medium-1-1">
+            <div class="uk-grid">
+                <div class="uk-width-large-1-1 uk-width-medium-1-2 uk-width-small-1-1">
+                    <div class="uk-panel">
+                        <div class="uk-panel-title  serverName ">
+                            Players
+                        </div>
+                        <div class="uk-panel-badge">
+                            <i class="uk-icon-user"></i>
+                        </div>
+                        <div class="mp_server__info__player_list">
+                            <ul style="display: none">
+                                <!-- Content thad will be duplicated -->
+                                <li class="mp_server__info__player_mockup">
+                                    <span class="mp_server__info__player__nickName"></span>
+                                </li>
+                            </ul>
+                            <ul class="uk-list uk-list-striped mp_server__info__player_container">
+                                <!-- Filled with JS -->
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="uk-panel-badge">
-                    <i class="uk-icon-user"></i>
-                </div>
-                <div class="mp_server__info__player_list">
-                    <ul style="display: none">
-                        <!-- Content thad will be duplicated -->
-                        <li class="mp_server__info__player_mockup">
-                            <span class="mp_server__info__player__nickName"></span>
-                        </li>
-                    </ul>
-                    <ul class="uk-list uk-list-striped mp_server__info__player_container">
-                        <!-- Filled with JS -->
-                    </ul>
-                </div>
-            </div>
-            <div class="uk-panel">
-                <div class="uk-panel-title  serverName ">
-                    Spectators
-                </div>
-                <div class="uk-panel-badge">
-                    <i class="uk-icon-eye"></i>
-                </div>
+                <div class="uk-width-large-1-1 uk-width-medium-1-2 uk-width-small-1-1">
+                    <div class="uk-panel">
+                        <div class="uk-panel-title  serverName ">
+                            Spectators
+                        </div>
+                        <div class="uk-panel-badge">
+                            <i class="uk-icon-eye"></i>
+                        </div>
 
-                <div class="mp_server__info__spectator_list">
-                    <ul style="display: none">
-                        <!-- Content thad will be duplicated -->
-                        <li class="mp_server__info__player_mockup">
-                            <span class="mp_server__info__player__nickName"></span>
-                        </li>
-                    </ul>
-                    <ul class="uk-list uk-list-striped mp_server__info__player_container">
-                        <!-- Filled with JS -->
-                    </ul>
+                        <div class="mp_server__info__spectator_list">
+                            <ul style="display: none">
+                                <!-- Content thad will be duplicated -->
+                                <li class="mp_server__info__player_mockup">
+                                    <span class="mp_server__info__player__nickName"></span>
+                                </li>
+                            </ul>
+                            <ul class="uk-list uk-list-striped mp_server__info__player_container">
+                                <!-- Filled with JS -->
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
 
-        <div class="uk-width-7-10">
+        <div class="uk-width-large-7-10 uk-width-medium-1-1">
             <div class="uk-panel">
                 <div class="uk-panel-title  serverName ">
                     Maps

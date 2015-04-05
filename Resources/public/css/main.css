@@ -94,3 +94,7 @@
 .textShadow {
     text-shadow: 1px 1px 2px #444; 
 }
+
+.mp_server__info__chat {
+    height: 125px !important;
+}
