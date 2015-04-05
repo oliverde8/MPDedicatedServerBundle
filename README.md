@@ -13,15 +13,21 @@ The bundle comes with a jQUery plugin that will make it easy for you to display 
 You of course need a working symfony installation; 
 
 ###Dependencies
-First we need need to add doctrine cache to our installation if not already done.  
+First we need need to add doctrine cache to our installation if not already done. 
 Add it first to your composer : 
 ```
 "doctrine/doctrine-cache-bundle": "~1.0",
 ```
 
-You also need to activate it in AppKernel : 
+You also need to activate the bundles it in AppKernel : 
 ```
 new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
+new \Kitpages\SemaphoreBundle\KitpagesSemaphoreBundle(),
+```
+
+You need to check if monolog bundle is active 
+```
+Symfony\Bundle\MonologBundle\MonologBundle()
 ```
 
 ###Install the bundle
@@ -84,8 +90,14 @@ doctrine_cache:
             namespace: info_cache
 ```
 
-There is no lock on cache at the moment, this means if multiple users connect at the same time they there might be a call to the dedicated done for each of them. 
-In the future a lock will be placed. First player to have an invalid cache will make the call, other players will get old information while the call is running. 
+We also need to set up the kitpages semaphore settings. 
+```
+kitpages_semaphore:
+    sleep_time_microseconds: 100000
+    dead_lock_microseconds: 30000000
+```
+
+The lock prevents multiple connections to the dedicated server if 2 users connect at both have skip cache. First to get the semaphore will do the call the other one will need to wait.
 
 ### Finish Installation 
 just run a composer update now and it should do the magic. 
@@ -166,5 +178,4 @@ This bundle is still being worked on, that is why there is no releases yet.
 * Comment the code
 * Add event & hooks to the jquery plugin
 * Make the jquery plugin more configurable
-* Add missing data to the api return json.
-* Improve cache so that only 1 call can be made to the dedicated at a time. 
+* Add missing data to the api return json? waiting for requests
