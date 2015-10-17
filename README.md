@@ -168,6 +168,23 @@ Map list on the other hand is only retrieved every hour.
 
 Chat lines is retrieved every 10 seconds. You can of course configure this. 
 
+## Using the ready install
+If you get the already installed version you will need to edit the configuration to add your own servers
+
+In app/config.yml find this :
+
+```
+#Maniaplanet Dedicated seever configuration
+oliverde8_mp_dedicated_server:
+    servers :
+```
+
+Here you need to setup each server one by one. By default there is 2 example configured. 
+
+Once you are done delete app/cache directory if on windows; on linux simple use app/console cache:clear --env="prod" 
+
+And then open the web directory in your navigator. 
+
 ## More Information 
 If you check the code you will see that what I call login isn't used anywhere in the code in that purpose, in reality it is just a key to identify the servers. 
 You may use something else as well
