@@ -38,7 +38,7 @@ class BlockController extends Controller {
     public function serverWidgetAction($login, $urlPath, $class = '', $standolone = true)
     {
         if ($standolone) {
-            $class .= 'mp_server__info';
+            $class .= ' mp_server__info';
         }
 
         return $this->render(

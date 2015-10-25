@@ -17,6 +17,7 @@ class ApiController extends Controller
 
         if (!$serverInfo) {
             $serverInfo = $this->serverUnAvailableError();
+            $serverInfo['name'] = $dedicated->getServerName($login);
         } else {
             // Remove some information
             unset($serverInfo->serverOptions->password);
@@ -29,6 +30,7 @@ class ApiController extends Controller
 
             $serverInfo->maps = $dedicated->getMapList($login);
         }
+
 
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json');

@@ -12,7 +12,7 @@
             server_maps_url: null,
             server_chat_url: null,
             mapping : []
-        }
+        };
 
         var that = $(element);
         var plugin = this;
@@ -115,6 +115,9 @@
         };
 
         plugin.updateServerInfo = function() {
+            console.log(plugin.settings.server_info_url);
+
+            if (plugin.settings.server_info_url != null)
             $.ajax({
                 url: plugin.settings.server_info_url
             }).done(function (data) {
@@ -138,6 +141,7 @@
 
                 } else {
                     console.error("Maniaplanet server Info can't connect to server : " + plugin.settings.login)
+                    that.find('.mp_server__info__name').html(data.name);
                 }
             });
         };

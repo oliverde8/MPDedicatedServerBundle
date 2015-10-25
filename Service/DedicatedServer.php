@@ -220,6 +220,10 @@ class DedicatedServer {
         return $serverNames;
     }
 
+    public function getServerName($login) {
+        return (isset($this->servers[$login]) ? $this->servers[$login]['name'] : '');
+    }
+
     /**
      * Get the cache key for server chat
      *
@@ -305,5 +309,38 @@ class DedicatedServer {
             return $this->connections[$login];
         }
         return null;
+    }
+
+    public static function formatPastTime($time, $nbDetails, $precisionToIgnore = 1) {
+        $info = array();
+        $totalMinutes = ((int) ($time / 60));
+        // Number of seconds.
+        $info[] = $time - ($totalMinutes * 60) . ' ' . 's';
+        if ($totalMinutes > 0) {
+            $totalHours = ((int) ($totalMinutes / 60));
+            // Number of minutes.
+            $info[] = $totalMinutes - ($totalHours * 60) . ' ' . 'min';
+            if ($totalHours > 0) {
+                $totalDays = ((int) ($totalHours / 24));
+                // Number of hours.
+                $info[] = $totalHours - ($totalDays * 24) . ' ' . 'h';
+                if ($totalDays > 0) {
+                    $info[] = $totalDays . ' ' . 'd';
+                }
+            }
+        }
+        $start = count($info) - 1;
+        $stop = $start - $nbDetails + 1;
+        if ($stop < $precisionToIgnore) {
+            $stop = $precisionToIgnore;
+        }
+        elseif ($stop < 0) {
+            $stop = 0;
+        }
+        $content = '';
+        for ($i = $start; $i >= $stop; $i--) {
+            $content .= $info[$i] . ' ';
+        }
+        return $content;
     }
 }

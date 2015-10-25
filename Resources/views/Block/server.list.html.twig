@@ -1,7 +1,12 @@
 {# oliverde8MPDedicatedServerBundle:Block:server.list.html.twig #}
+<li class="uk-navbar-parent" data-uk-dropdown>
+    <a href="#"> Server Overview <i class="uk-icon-caret-down"></i></a>
 
-<ul class="uk-nav {{ class }}">
-    {% for login, name in serverNames %}
-    <li><a href="{{ path(urlPath, {'login' : login}) }}">{{ name }}name</a></li>
-    {% endfor %}
-</ul>
+    <div class="uk-dropdown uk-dropdown-navbar">
+        <ul class="uk-nav {{ class }}">
+            {% for login, name in serverNames %}
+            <li><a href="{{ path(urlPath, {'login' : login}) }}">{{ name }}name</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</li>

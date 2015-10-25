@@ -1,9 +1,12 @@
 {# oliverde8MPDedicatedServerBundle:Block:server.widget.html.twig #}
 
-<div class="{{ class }} data-uk-grid-margin data-server-login="{{ login }}">
+<div class="{{ class }} data-uk-grid-margin"
+     data-server-login="{{ login }}"
+        data-server-info-url="{{ path('oliverde8_mp_dedicated_server_api_info', {'login' : login}) }}"
+>
     <div class="uk-panel uk-panel-box">
         <div class="uk-panel-title  serverName ">
-            <span class="mp_server__info__name"></span>
+            <a href="{{ path(urlPath, {'login' : login}) }}" class="mp_server__info__name"></a>
             <sup><span class="mp_server__info__ladderServerLimitMax"></span>k</sup>
         </div>
         <div class="uk-panel-badge badge-online uk-badge-success">
