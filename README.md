@@ -1,6 +1,8 @@
 # Symfony : Maniaplanet Dedicated Server Bundle
 A bundle that creates a simple json api with application cache to simplify access to dedicated server information. 
 
+[![Latest Stable Version](https://poser.pugx.org/oliverde8/mp-dedicated-server-bundle/v/stable)](https://packagist.org/packages/oliverde8/mp-dedicated-server-bundle) [![Total Downloads](https://poser.pugx.org/oliverde8/mp-dedicated-server-bundle/downloads)](https://packagist.org/packages/oliverde8/mp-dedicated-server-bundle) [![Latest Unstable Version](https://poser.pugx.org/oliverde8/mp-dedicated-server-bundle/v/unstable)](https://packagist.org/packages/oliverde8/mp-dedicated-server-bundle) [![License](https://poser.pugx.org/oliverde8/mp-dedicated-server-bundle/license)](https://packagist.org/packages/oliverde8/mp-dedicated-server-bundle)
+
 It also has some built in blocks to use on your website
 
 You may use this for 2 reasons ; 
